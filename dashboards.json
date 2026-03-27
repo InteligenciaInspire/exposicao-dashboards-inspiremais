@@ -1,0 +1,15 @@
+[
+  {
+    "id": "powerbi-1",
+    "title": "Painel de produtividade (Power BI)",
+    "url": "https://app.powerbi.com/reportEmbed?reportId=1756e20d-3f00-41e7-b50a-14ace7833c08&autoAuth=true&ctid=da3d9dee-9339-4bcf-aaa8-40dcfd2d29f1",
+    "intervalSeconds": 60
+  },
+  {
+    "id": "looker-1",
+    "title": "Vendas (Looker Studio)",
+    "url": "https://lookerstudio.google.com/embed/reporting/e120ee5d-3dd6-4cbb-a87b-18abf977ff02/page/p_1je465xu1d",
+    "intervalSeconds": 90,
+    "sandbox": "allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+  }
+]
