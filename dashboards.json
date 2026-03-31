@@ -1,4 +1,3 @@
-[
   {
     "id": "powerbi-1",
     "title": "Painel de produtividade (Power BI)",
@@ -11,23 +10,5 @@
     "url": "https://lookerstudio.google.com/embed/reporting/e120ee5d-3dd6-4cbb-a87b-18abf977ff02/page/p_1je465xu1d",
     "intervalSeconds": 30,
     "sandbox": "allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-  },
-  {
-    "id": "Power-workspaces",
-    "title": "Power-workspaces",
-    "url": "https://app.powerbi.com/view?r=eyJrIjoiNDVlYmJjOWQtZGYzNS00OWU1LWFiYzktNDJkOTRkNmUxNzJiIiwidCI6ImRhM2Q5ZGVlLTkzMzktNGJjZi1hYWE4LTQwZGNmZDJkMjlmMSJ9",
-    "intervalSeconds": 30,
-  },
-  {
-    "id": "Power-cargos",
-    "title": "Power-cargos",
-    "url": "https://app.powerbi.com/view?r=eyJrIjoiMjA4ZjdiMzgtNWE1My00YmRiLTg5NjUtMWEzZThhMDY5YjUwIiwidCI6ImRhM2Q5ZGVlLTkzMzktNGJjZi1hYWE4LTQwZGNmZDJkMjlmMSJ9",
-    "intervalSeconds": 30,
-  },
-  {
-    "id": "Power-tipos-atividades",
-    "title": "Power-tipos-atividades",
-    "url": "https://app.powerbi.com/view?r=eyJrIjoiMzFhOTI0ZTctYTQ2NC00N2ViLWE4ZmUtM2M0YjVlNjg0NmMwIiwidCI6ImRhM2Q5ZGVlLTkzMzktNGJjZi1hYWE4LTQwZGNmZDJkMjlmMSJ9",
-    "intervalSeconds": 30,
   }
 ]
