@@ -1,4 +1,4 @@
-# Exibição de Dashboards (sem reload)
+# Exibição de Dashboards
 
 Aplicação Next.js 14 (app router, TS, Tailwind) para rotacionar múltiplos dashboards via iframes sem recarregar a página. Inclui UI para editar títulos, URLs, intervalos, sandbox/allow e importar/exportar JSON. Config fica no `localStorage` do navegador e pode ser compartilhada via export.
 
@@ -22,6 +22,9 @@ npm run dev
 
 - Play/Pause, Próximo/Anterior, indicador do slide ativo, intervalo por dashboard.
 - Iframes permanecem montados; só a visibilidade troca (sem reload/redimensionamento).
+- É possível configurar o campo **Reload iframes (s)** na barra superior:
+	- `0` desativa reload automático
+	- `> 0` recarrega todos os iframes nesse intervalo em segundos
 
 ## Modo TV / fullscreen
 

@@ -18,6 +18,7 @@ const DEFAULT_INTERVAL = 60;
 
 type TvSettings = {
   tvHeightVH: number;
+  iframeReloadSeconds: number;
 };
 
 function loadStoredDashboards(): Dashboard[] | null {
@@ -46,7 +47,11 @@ function loadSettings(): TvSettings | null {
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (typeof parsed?.tvHeightVH === "number") {
-      return { tvHeightVH: parsed.tvHeightVH };
+      return {
+        tvHeightVH: parsed.tvHeightVH,
+        iframeReloadSeconds:
+          typeof parsed?.iframeReloadSeconds === "number" ? parsed.iframeReloadSeconds : 0,
+      };
     }
     return null;
   } catch (err) {
@@ -71,8 +76,11 @@ export default function Home() {
   const [autoRotate, setAutoRotate] = useState(true);
   const [tvMode, setTvMode] = useState(false);
   const [tvHeightVH, setTvHeightVH] = useState<number>(100);
+  const [iframeReloadSeconds, setIframeReloadSeconds] = useState<number>(0);
+  const [reloadNonce, setReloadNonce] = useState(0);
   const [importText, setImportText] = useState("");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reloadTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Load overrides from localStorage on mount
   useEffect(() => {
@@ -84,6 +92,9 @@ export default function Home() {
 
     const storedSettings = loadSettings();
     if (storedSettings?.tvHeightVH) setTvHeightVH(storedSettings.tvHeightVH);
+    if (typeof storedSettings?.iframeReloadSeconds === "number") {
+      setIframeReloadSeconds(storedSettings.iframeReloadSeconds);
+    }
   }, []);
 
   // Keep current index in bounds after edits
@@ -113,6 +124,23 @@ export default function Home() {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [autoRotate, dashboards, currentIndex]);
+
+  useEffect(() => {
+    if (reloadTimerRef.current) {
+      clearInterval(reloadTimerRef.current);
+      reloadTimerRef.current = null;
+    }
+
+    if (iframeReloadSeconds <= 0 || dashboards.length === 0) return;
+
+    reloadTimerRef.current = setInterval(() => {
+      setReloadNonce((prev) => prev + 1);
+    }, iframeReloadSeconds * 1000);
+
+    return () => {
+      if (reloadTimerRef.current) clearInterval(reloadTimerRef.current);
+    };
+  }, [iframeReloadSeconds, dashboards.length]);
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % dashboards.length);
@@ -200,8 +228,8 @@ export default function Home() {
   );
 
   useEffect(() => {
-    persistSettings({ tvHeightVH });
-  }, [tvHeightVH]);
+    persistSettings({ tvHeightVH, iframeReloadSeconds });
+  }, [tvHeightVH, iframeReloadSeconds]);
 
   const containerClass = tvMode
     ? "min-h-screen w-screen flex flex-col gap-4 px-4 py-4 bg-neutral-950 text-neutral-50"
@@ -259,6 +287,19 @@ export default function Home() {
                   className="w-16 rounded border border-white/15 bg-black/40 px-2 py-1 text-white focus:border-white/40 focus:outline-none"
                 />
               </label>
+              <label className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs uppercase tracking-wide text-white/70">
+                Reload iframes (s)
+                <input
+                  type="number"
+                  min={0}
+                  value={iframeReloadSeconds}
+                  onChange={(e) => {
+                    const next = Number(e.target.value);
+                    setIframeReloadSeconds(Number.isFinite(next) ? Math.max(0, next) : 0);
+                  }}
+                  className="w-16 rounded border border-white/15 bg-black/40 px-2 py-1 text-white focus:border-white/40 focus:outline-none"
+                />
+              </label>
               <button
                 onClick={() => {
                   if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
@@ -280,7 +321,7 @@ export default function Home() {
           <div className={frameClass} style={frameStyle}>
             {dashboards.map((dashboard, idx) => (
               <iframe
-                key={dashboard.id}
+                key={`${dashboard.id}-${reloadNonce}`}
                 src={dashboard.url}
                 sandbox={dashboard.sandbox}
                 allow={dashboard.allow}
