@@ -2,13 +2,13 @@
   {
     "id": "powerbi-1",
     "title": "Painel de produtividade (Power BI)",
-    "url": "https://app.powerbi.com/view?r=eyJrIjoiOWRkNjdmN2UtYjVmNC00MGY0LWI1MjgtZTIwNzQ2YmI1YTZmIiwidCI6ImRhM2Q5ZGVlLTkzMzktNGJjZi1hYWE4LTQwZGNmZDJkMjlmMSJ9",
+    "url": "https://app.powerbiexemplodeurl.com/view",
     "intervalSeconds": 30
   },
   {
     "id": "looker-1",
     "title": "Vendas (Looker Studio)",
-    "url": "https://lookerstudio.google.com/embed/reporting/e120ee5d-3dd6-4cbb-a87b-18abf977ff02/page/p_1je465xu1d",
+    "url": "https://lookerstudio.exemplodeurl.com",
     "intervalSeconds": 30,
     "sandbox": "allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
   }
